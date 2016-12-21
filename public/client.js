@@ -1,7 +1,9 @@
 var socket = io();
 var connectionCount = document.getElementById('connection-count');
 var statusMessage = document.getElementById('status-message');
+var currentVotes = document.querySelectorAll('#current-votes li');
 var buttons = document.querySelectorAll('#choices button');
+
 
 
 socket.on('usersConnected', function (count) {
@@ -19,5 +21,8 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 socket.on('voteCount', function (votes) {
-  console.log(votes);
+  let arr = Object.keys(votes)
+  for(var i = 0; i < currentVotes.length; i++){
+    currentVotes[i].innerText = arr[i]+ ': ' + votes[arr[i]]
+  }
 });
